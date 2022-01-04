@@ -1,8 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import { Bar, Doughnut, Line } from 'react-chartjs-2'
 import axios from 'axios'
+import { useSelector } from 'react-redux';
+
 
 const Contents = () => {
+
+  const counter = useSelector(state => state.title);
+  const newURL = useSelector(state => state.url);
+  console.log(counter);
 
   const [confirmedData, setConfirmedData] = useState({
     labels : [],
@@ -41,9 +47,8 @@ const Contents = () => {
 
   useEffect(()=>{
     const fetchEvents = async() =>{
-      const res = await axios.get("https://api.covid19api.com/total/country/kr");
-      makeData(res.data)
-   
+      const res = await axios.get(newURL);
+      makeData(res.data);
     }
 
     const makeData = (items)=>{
@@ -93,7 +98,7 @@ const Contents = () => {
         labels,
         datasets: [
           {
-            label: "국내 누적 확진자",
+            label: `${counter} 누적 확진자`,
             backgroundColor: "salmon",
             fill: true,
             data: arr.map(a => a.confirmed)
@@ -128,13 +133,13 @@ const Contents = () => {
       });
     }
 
-    fetchEvents()
-  }, [])
+    fetchEvents();
+  }, [counter]);
 
 
   return (
     <section>
-        <h2>국내 코로나 현황</h2>
+        <h2>{counter} 현황</h2>
         <div className='contents'> 
           <div>
             <Bar data={confirmedData} options={
@@ -146,7 +151,7 @@ const Contents = () => {
           <div>
             <Line data={quarantinedData} options={
               { title: { display: true, text: "월별 격리자 현황", fontSize: 16 }},
-              { legend: { display: true, position: "bottom" } }
+              { legend: { display: true, position: 'bottom' } }
             } />
           </div>
 
