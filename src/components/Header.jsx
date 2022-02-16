@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react'
 import store from '../store';
 
 const Header = () => {
-  //const [url,setUrl] = useState("https://api.covid19api.com/total/country/kr");
   const selectList = ["국내","미국"];
   const [selected, setSelected] = useState("");
 
@@ -19,16 +18,12 @@ const Header = () => {
   }
 
   const ChangeKorea = () =>{
-    //setUrl("https://api.covid19api.com/total/country/kr");
-    console.log("국내 COVID");
     return(
       store.dispatch({type : 'KOREA'})
     )
   }
 
   const ChangeUs = () => {
-    //setUrl("https://api.covid19api.com/total/country/us");
-    console.log("미국 COVID");
     return(
       store.dispatch({type : 'US'})
     )

@@ -8,7 +8,6 @@ const Contents = () => {
 
   const counter = useSelector(state => state.title);
   const newURL = useSelector(state => state.url);
-  console.log(counter);
 
   const [confirmedData, setConfirmedData] = useState({
     labels : [],
